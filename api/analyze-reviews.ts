@@ -1,12 +1,16 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import fetch from 'node-fetch';
 
-console.log("GEMINI_API_KEY:", process.env.GEMINI_API_KEY); // Check if API key is defined
-
 const API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  console.log("🔐 GEMINI_API_KEY present?", !!API_KEY);
+
+  if (!API_KEY) {
+    return res.status(500).json({ error: 'Missing GEMINI_API_KEY in environment variables' });
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed. Use POST.' });
   }
@@ -39,7 +43,7 @@ Here are the reviews:
 ${reviews.map((r: any, i: number) => `${i + 1}. ${r.review_text}`).join("\n")}
 
 REMEMBER: Respond ONLY with valid JSON. DO NOT include markdown or commentary. DO NOT explain anything.
-`;
+  `.trim();
 
   try {
     const response = await fetch(`${GEMINI_URL}?key=${API_KEY}`, {
@@ -51,7 +55,8 @@ REMEMBER: Respond ONLY with valid JSON. DO NOT include markdown or commentary. D
     });
 
     const data = await response.json();
-    console.log('Raw Gemini response:', JSON.stringify(data, null, 2));
+    console.log('📨 Raw Gemini response:', JSON.stringify(data, null, 2));
+
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
     let cleaned = text.trim();
@@ -67,7 +72,7 @@ REMEMBER: Respond ONLY with valid JSON. DO NOT include markdown or commentary. D
       const parsed = JSON.parse(cleaned);
       return res.status(200).json({ analysis: parsed });
     } catch (err) {
-      console.error('❌ Failed to parse JSON:', cleaned, err);
+      console.error('❌ JSON parse error:', cleaned, err);
       return res.status(500).json({ error: 'Invalid JSON from Gemini' });
     }
   } catch (err) {
