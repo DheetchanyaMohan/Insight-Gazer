@@ -156,7 +156,6 @@ const CsvUpload = ({ onDataExtracted, isProcessing, setIsProcessing }: CsvUpload
             <strong>CSV Format:</strong> Your file should contain columns for 'product_id' or 'product_title', 
             'review_text', and optionally 'category', 'rating', and 'sentiment'. Each row represents one review.
             <br />
-            <strong>Note:</strong> Make sure your backend server is running on http://localhost:3001
           </AlertDescription>
         </Alert>
       </CardContent>

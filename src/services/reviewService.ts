@@ -3,7 +3,7 @@ export const analyzeReviewsWithOpenAI = async (productName: string, reviews: any
         const MAX_REVIEWS = 20;
         const limitedReviews = reviews.slice(0, MAX_REVIEWS);
 
-        const response = await fetch('http://localhost:3001/api/analyze-reviews', {
+        const response = await fetch('/api/analyze-reviews', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
