@@ -97,8 +97,6 @@ Currently supports only English-language reviews
 ## 📄 License
 MIT License
 
-🧠 Built as part of a weekend project by Dheetchanya Mohan to explore generative AI for product intelligence.
-
 ---
 
 Let me know if you'd like me to include a **screenshots section**, badges, or split this into multiple sections for Vercel/Vite/etc.
