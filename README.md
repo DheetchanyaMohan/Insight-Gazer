@@ -18,6 +18,8 @@ Check out the live version here:
 👉 [https://insight-gazer.vercel.app](https://insight-gazer.vercel.app)
 
 ## 📂 Project Structure
+
+```
 product-feature-gazer-72/
 ├── api/
 │ └── analyze-reviews.ts # Vercel serverless backend (Gemini API call)
@@ -29,7 +31,7 @@ product-feature-gazer-72/
 ├── .env # (local only) API key for Gemini
 ├── package.json
 └── tsconfig.json
-
+```
 
 ## 🧪 How It Works
 
